@@ -25,6 +25,24 @@
         return localStorage.getItem(STORAGE_KEY) || "beforeWork";
     }
 
+    function getFinishedElapsed() {
+
+        const finishedAt =
+            Number(localStorage.getItem("finishedAt"));
+
+        if (!finishedAt) {
+            return "";
+        }
+
+        const elapsed =
+            Math.floor((Date.now() - finishedAt) / 60000);
+
+        const hours = Math.floor(elapsed / 60);
+        const minutes = elapsed % 60;
+
+        return `（退勤後 ${hours}時間${minutes}分）`;
+    }
+
     function getStatusText(state) {
         switch(state) {
             case "working":
@@ -34,7 +52,7 @@
                 return "🟠 外出中";
 
             case "finished":
-                return "⚫ 退勤済み";
+                return "⚫ 退勤済み " + getFinishedElapsed();
 
             default:
                 return "⚪ 出勤前";
@@ -148,6 +166,12 @@
         });
 
         endBtn.addEventListener("click", () => {
+
+            localStorage.setItem(
+                "finishedAt",
+                Date.now()
+            );
+
             setTimeout(() => saveState("finished"), 300);
         });
 
@@ -173,5 +197,13 @@
         }
 
     }, 500);
+
+    setInterval(() => {
+
+        if (loadState() === "finished") {
+            ensureStatusBar();
+        }
+
+    }, 60000);
 
 })();
