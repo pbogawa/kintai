@@ -22,9 +22,10 @@
     }
 
     function loadState() {
-        return localStorage.getItem(STORAGE_KEY) || "beforeWork";
+        return localStorage.getItem(STORAGE_KEY);
     }
 
+    
     function getFinishedElapsed() {
 
         const finishedAt =
@@ -55,7 +56,7 @@
                 return "⚫ 退勤済み " + getFinishedElapsed();
 
             default:
-                return "⚪ 出勤前";
+                return "";
         }
     }
 
@@ -113,6 +114,15 @@
         const outBtn = findButton("外出開始");
         const backBtn = findButton("外出終了");
 
+        // 未設定時
+        if (!state) {
+            highlight(startBtn, false);
+            highlight(endBtn, false);
+            highlight(outBtn, false);
+            highlight(backBtn, false);
+            return;
+        }
+            
         if (state === "beforeWork") {
 
             highlight(startBtn, true);
