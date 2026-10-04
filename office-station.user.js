@@ -109,9 +109,9 @@
 
             testButton.addEventListener("click", () => {
 
-
                 location.href =
-                    "shortcuts://run-shortcut?name=外出通知";
+                "shortcuts://run-shortcut?name=外出通知&input=text&text=1";
+
             });
 
             document.body.appendChild(testButton);
