@@ -109,7 +109,6 @@
 
             testButton.addEventListener("click", () => {
 
-                alert("起動します");
 
                 location.href =
                     "shortcuts://run-shortcut?name=外出通知";
