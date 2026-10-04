@@ -90,6 +90,33 @@
         }
 
         bar.textContent = getStatusText(loadState());
+        if (!document.getElementById("shortcutTestButton")) {
+
+            const testButton = document.createElement("button");
+
+            testButton.id = "shortcutTestButton";
+
+            testButton.textContent = "ショートカットテスト";
+
+            Object.assign(testButton.style, {
+                position: "fixed",
+                top: "60px",
+                right: "10px",
+                zIndex: "99999",
+                padding: "10px",
+                fontSize: "16px"
+            });
+
+            testButton.addEventListener("click", () => {
+
+                alert("起動します");
+
+                location.href =
+                    "shortcuts://run-shortcut?name=外出通知";
+            });
+
+            document.body.appendChild(testButton);
+        }
     }
 
     function highlight(button, enabled) {
