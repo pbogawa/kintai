@@ -186,6 +186,21 @@
         });
 
         outBtn.addEventListener("click", () => {
+
+            const minutes = prompt(
+                "外出予定時間を入力してください\n15,30,45,60,90,120",
+                "60"
+            );
+
+            if (
+                minutes &&
+                ["15","30","45","60","90","120"].includes(minutes)
+            ) {
+
+                location.href =
+                `shortcuts://run-shortcut?name=外出通知&input=text&text=${minutes}`;
+            }
+
             setTimeout(() => saveState("outing"), 300);
         });
 
